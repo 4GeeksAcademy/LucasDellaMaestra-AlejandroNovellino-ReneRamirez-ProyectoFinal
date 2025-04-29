@@ -29,23 +29,24 @@ def get_groups_for_confusion_matrix(confusion: pd.DataFrame):
 
 # drawing functions ####################################################################################################
 
-def draw_corr_matrix(corr: pd.DataFrame, ) -> None:
+def draw_corr_matrix(corr: pd.DataFrame, fig_size: tuple[int, int], output_format: str=".2%") -> None:
     """
     Draw a correlation matrix using seaborn.
 
     Args:
         corr (DataFrame): The correlation matrix to draw.
+        fig_size (tuple[int, int]): Size of the image to draw.
+        output_format (): Output format of the correlation values.
 
     Returns:
         None
-
     """
 
     # generate a mask for the upper triangle
     mask = np.triu(np.ones_like(corr, dtype=bool))
 
     # set up the matplotlib figure
-    plt.subplots(figsize=(11, 9))
+    plt.subplots(figsize=fig_size)
 
     # generate a custom diverging colormap
     cmap = sns.diverging_palette(230, 20, as_cmap=True)
@@ -56,6 +57,7 @@ def draw_corr_matrix(corr: pd.DataFrame, ) -> None:
         annot=True,
         mask=mask,
         cmap=cmap,
+        fmt=output_format,
         vmax=.3,
         center=0,
         square=True,
