@@ -1,6 +1,25 @@
 {
+    // set the python path
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
     "workbench.startupEditor": "readme",
     "workbench.editorAssociations": {
         "*.md": "vscode.markdown.preview.editor"
-    }
+    },
+    "cSpell.enabled": true,
+    "cSpell.language": "en,es-ES",
+    "cSpell.words": [
+        "categoricas",
+        "countplot",
+        "figsize",
+        "histplot",
+        "importances",
+        "logloss",
+        "numericas",
+        "xlabel",
+        "xlim",
+        "xticks",
+        "ylabel"
+    ]
 }
