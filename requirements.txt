@@ -1,14 +1,14 @@
 jupyter
-matplotlib>
+matplotlib
 numpy
 pandas
-psycopg2-binary>
+psycopg2-binary
 python-dotenv
 requests
 scikit-learn
 seaborn
 sqlalchemy
-sympy>
+sympy
 xgboost
 ipython
 shap
