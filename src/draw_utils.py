@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
 
 
 # helper function for the drawing functions ############################################################################
@@ -155,3 +156,69 @@ def draw_comparison_confusion_matrices(
     plt.show()
 
     return None
+
+
+def draw_roc_auc(
+        y_test: pd.Series,
+        y_prob: pd.Series,
+        g_title: str
+) -> None:
+    """
+    Draw the ROC AUC of a classification model.
+
+    Args:
+        y_test (DataFrame): Y test values.
+        y_prob (DataFrame): Y predicted probabilities.
+        g_title (str): Title of the graph.
+
+    Returns:
+        None
+    """
+
+    # calculate the metrics
+    fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+    roc_auc = auc(fpr, tpr)
+
+    # graph the curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC AUC = {roc_auc:.3f})")
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--', label=f"Random guess") # random plot
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title(g_title)
+    plt.legend(loc="lower right")
+    plt.grid(True)
+    plt.show()
+
+
+def draw_pr_auc(
+        y_test: pd.Series,
+        y_prob: pd.Series,
+        g_title: str
+) -> None:
+    """
+    Draw the PR AUC of a classification model.
+
+    Args:
+        y_test (DataFrame): Y test values.
+        y_prob (DataFrame): Y predicted probabilities.
+        g_title (str): Title of the graph.
+
+    Returns:
+        None
+    """
+
+    # calculate the metrics
+    precision, recall, thresholds_pr = precision_recall_curve(y_test, y_prob)
+    pr_auc = average_precision_score(y_test, y_prob)
+
+    # Graficar la curva
+    plt.figure(figsize=(8, 6))
+    plt.plot(recall, precision, color='darkorange', lw=2, label=f"PR AUC = {pr_auc:.3f})")
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title('Curva Precision-Recall')
+    plt.legend(loc='lower left')
+    plt.show()
